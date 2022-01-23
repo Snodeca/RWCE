@@ -22,5 +22,6 @@ end
 
 package.loaded.runner = nil
 local runner = require('runner')
+originalTotalRings = 0
 
 runner.start(RWCEOptions)

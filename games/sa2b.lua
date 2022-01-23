@@ -305,7 +305,6 @@ function MyGame:displayValues()
   end
 
   local secall = (minu*60)+sec 
-  -- local timebonus = (secall-60)/20
   local timebonus = 10000-(secall-60)*20
     if timebonus > 10000 then
       timebonus = 10000
@@ -316,31 +315,15 @@ function MyGame:displayValues()
   local gamestatemath = self.gameState:get()
   local levelBeaten = self.levelBeaten:get()
   local correcttotalrings = self.rings:get() + self.totalrings:get()
+  
+  if gamestatemath == 2 then
+    originalTotalRings = self.totalrings:get()
+  end
+  
+  if self.totalrings:get() == self.rings:get() + originalTotalRings then
+    correcttotalrings = self.totalrings:get()
+  end
 
---    if gamestatemath == 16 then
---      if actionn == 18 then
---        if levelBeaten == 1 then
-        -- frame counter -> text file once
-        -- txt + 259, then
---          correcttotalrings = self.totalrings:get()
-
- --       end
- --     end
---    end
-
---  local levelBeaten
---  local temporaryTotalRings
---  local correcttotalrings
---  
---  if gamestatemath == 2 then
---    temporaryTotalRings = self.totalrings:get()
---  end
---
---  if self.rings:get() > 0 do
---    correcttotalrings = temporaryTotalRings + self.rings:get()
---  else
---    correcttotalrings = self.totalrings:get()
---  end
   
 --  local currentStage = self.currentStage.get()
 --  local currentMission = self.currentMission.get()
