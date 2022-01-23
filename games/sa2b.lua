@@ -30,6 +30,7 @@ function MyGame:updateAddresses()
   local pointerChar2 = self.startAddress + 0x1e7768
   local pointerChar3 = self.startAddress + 0x1e7748
   local pointerChar4 = self.startAddress + 0x1e7728
+  local pointerChar5 = self.startAddress + 0x1fb96c
 
   if pointerChar1 == 0 then
 	self.pointerChar1Value = nil
@@ -54,6 +55,13 @@ function MyGame:updateAddresses()
   else
 	self.pointerChar4Value = self.startAddress + utils.readIntBE(pointerChar4) - 0x80000000
   end
+
+  if pointChar5 == 0 then
+    self.pointerChar5Value = nil
+  else
+    self.pointerChar5Value = self.startAddress + utils.readIntBE(pointerChar5) - 0x80000000
+  end
+  
 end
 
 
@@ -100,7 +108,10 @@ function PointerBasedChar4Value:getAddress()
   return self.game.pointerChar4Value + self.offset
 end
 
-
+local PointerBasedChar5Value = subclass(valuetypes.MemoryValue)
+function PointerBasedChar5Value:getAddress()
+  return self.game.pointerChar5Value + self.offset
+end
 -- Game addresses
 
 GV.stSpeed = MV(
@@ -248,6 +259,8 @@ GV.minutes =
   GV.levelBeaten = MV("LevelBeaten", 0x1CC1AA, StaticValue, ByteType)
   GV.currentStage = MV("CurrentStage", 0x3AD821, StaticValue, ByteType)
   GV.currentMission = MV("CurrentMission", 0x1CC18B, StaticValue, ByteType)
+  GV.emblemCount = MV("Emblems", 0x1F234D, StaticValue, ByteType)
+  GV.spindashCharge = MV("SpindashCharge", 0x61, PointerBasedChar5Value, ByteType)
 
 -- Screen display functions
 
@@ -277,7 +290,10 @@ function MyGame:displayValues()
 	  -- Start 180
       ['Score'] = '',
       ['TotalRings'] = '',
-      ['CurrentRank'] = ''
+      ['CurrentRank'] = '',
+      ['RankRequirement'] = '',
+      ['Emblems'] = '',
+      ['SpindashCharge'] = ''
 	  -- End 180
     }
   end
@@ -325,23 +341,23 @@ function MyGame:displayValues()
   end
 
   
-  local currentStage = self.currentStage.get()
-  local currentMission = self.currentMission.get()
-  local currentRank
-    if currentStage == 13 then -- City Escape
-      if currentMission == 0 then
+  local curStage = self.currentStage:get()
+  local curMission = self.currentMission:get()
+    if curStage == 13 then -- City Escape
+      if curMission == 0 then
+        aRankReq = 18000
         if scorewtb < 9000 then
-          currentRank = 14
+          curRank = 14
         elseif scorewtb < 11000 then
-          currentRank = 13
+          curRank = 13
         elseif scorewtb < 14000 then
-          currentRank = 12
+          curRank = 12
         elseif scorewtb < 18000 then
-          currentRank = 11
+          curRank = 11
         elseif scorewtb >= 18000 then
-          currentRank = 10
+          curRank = 10
         else
-          currentRank = 14
+          curRank = 14
         end
       end
     end
@@ -370,8 +386,11 @@ function MyGame:displayValues()
     ['AnalogMagnitude'] = string.format("%6.4f", self.analogMagnitude:get()),
     -- 180
     ['Score'] = string.format("%8d", scorewtb),
-    ['TotalRings'] = string.format("%7d", correcttotalrings),
-    ['CurrentRank'] = string.format("%3X", currentRank)
+    ['TotalRings'] = string.format("%8d", correcttotalrings),
+    ['Emblems'] = string.format("%3d", self.emblemCount:get()),
+    ['CurrentRank'] = string.format("%1X", curRank),
+    ['RankRequirement'] = string.format("%6d", aRankReq),
+    ['SpindashCharge'] = string.format("%2d", self.spindashCharge:get())
   }
 
 end

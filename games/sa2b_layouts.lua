@@ -12,9 +12,6 @@ local InputDisplay = inputDisplayModule.InputDisplay
 local imageValueDisplayModule = require 'imagevaluedisplay'
 local ImageValueDisplay = imageValueDisplayModule.ImageValueDisplay
 
-local imageRankDisplayModule = require 'imagerankdisplay'
-local ImageRankDisplay = imageRankDisplayModule.ImageRankDisplay
-
 local background = require 'background'
 local SA2Background = background.SA2Background
 
@@ -164,13 +161,17 @@ function layouts.hundo_viewer:init()
     {Name = 'Action', Characters = 2, X = 274, Y = 457},
     {Name = 'RNG', Characters = 10, X = 169, Y = 481},
     {Name = 'Flight', Characters = 7, X = 209, Y = 481},
-    {Name = 'Score', Characters = 16, X = 800, Y = 800},
-    {Name = 'TotalRings', Characters = 16, X = 900, Y = 900}
+    {Name = 'Score', Characters = 9, X = 800, Y = 800},
+    {Name = 'TotalRings', Characters = 8, X = 980, Y = 144},
+    {Name = 'Emblems', Characters = 3, X = 980, Y = 200},
+    {Name = 'RankRequirement', Characters = 9, X = 980, Y = 220},
+    {Name = 'SpindashCharge', Characters = 2, X = 980, Y = 240},
+    
   }
   
---  local rank = {
---    {Name = 'CurrentRank', Characters = 1, X = 700, Y = 700}
---  }
+  local rank = {
+    {Name = 'CurrentRank', Characters = 1, X = 980, Y = 300}
+  }
 
   for i, variable in ipairs(variables) do
     self:addImage(ImageValueDisplay, {
@@ -179,12 +180,12 @@ function layouts.hundo_viewer:init()
     }, {x=variable.X,y=variable.Y})
   end
   
---  for i, variable in ipairs(variables) do
---    self:addImage(ImageValueDisplay, {
---      function(...) return self.game:displayValues()[variable.Name] end,
---      variable.Characters, 'ranks52px'
---    }, {x=variable.X,y=variable.Y})
---  end
+  for i, variable in ipairs(rank) do
+    self:addImage(ImageValueDisplay, {
+      function(...) return self.game:displayValues()[variable.Name] end,
+      variable.Characters, 'ranks52px'
+    }, {x=variable.X,y=variable.Y})
+  end
 
   self:addImage(ImageValueDisplay, {
     function(...) return self.game:displayAnalogAngle() end,
@@ -528,13 +529,14 @@ function layouts.timebonus:init()
   self:setBreakpointUpdateMethod()
   self:activateAutoPositioningY()
   
-  self.window:setSize(240, 540)
+  self.window:setSize(240, 240)
   self.labelDefaults = {fontSize=fontSize, fontName=fixedWidthFontName}
   self.itemDisplayDefaults = {narrow=true}
 
   local variables = {
-    {Name = 'TotalRings', Characters = 16, X = 0, Y = 0},
-    {Name = 'CurrentRank', Characters = 5, X = 0, Y = 100}
+    {Name = 'VSpd', Characters = 16, X = 0, Y = 0},
+    {Name = 'RankRequirement', Characters = 6, X = 0, Y = 10},
+    {Name = 'SpindashCharge', Characters = 16, X = 0, Y = 20}
   }
   
     for i, variable in ipairs(variables) do
@@ -544,17 +546,16 @@ function layouts.timebonus:init()
     }, {x=variable.X,y=variable.Y})
   end
   
---    local rank = {
---    {Name = 'CurrentRank', Characters = 5, X = 0, Y = 100}
---  }
---  
---  for i, variable in ipairs(rank) do
---    self:addImage(ImageValueDisplay, {
---      function(...) return self.game:displayValues()[variable.Name] end,
---      variable.Characters, 'ranks52px'
---    }, {x=variable.X,y=variable.Y})
-
---end
+    local rank = {
+    {Name = 'CurrentRank', Characters = 1, X = 0, Y = 10}
+  }
+  
+  for i, variable in ipairs(rank) do
+    self:addImage(ImageValueDisplay, {
+      function(...) return self.game:displayValues()[variable.Name] end,
+      variable.Characters, 'ranks52px'
+    }, {x=variable.X,y=variable.Y})
+  end
   
 end
 

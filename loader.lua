@@ -22,6 +22,10 @@ end
 
 package.loaded.runner = nil
 local runner = require('runner')
+
+-- global variables for games/sa2b.lua
 originalTotalRings = 0
+curRank = 14
+aRankReq = 10000
 
 runner.start(RWCEOptions)
