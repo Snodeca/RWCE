@@ -1,0 +1,15 @@
+RWCEMainDirectory = [[C:\Users\Margot\BetterDocuments\ram-watch-cheat-engine-master (2)]]
+
+RWCEOptions = {
+  gameModuleName = 'sa2b',
+  gameVersion = 'na',
+  layoutName = 'hundo_viewer',
+
+  -- Addresses for Dolphin 4.0-4222
+  frameCounterAddress = 0x00C56BD8,
+  oncePerFrameAddress = 0x004EB7AC,
+}
+
+local loaderFile, errorMessage = loadfile(RWCEMainDirectory .. '/loader.lua')
+if errorMessage then error(errorMessage) end
+loaderFile()

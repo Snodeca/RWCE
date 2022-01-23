@@ -1,5 +1,5 @@
-local width = 960
-local height = 328
+local width = 1920
+local height = 1080
 
 local backgroundFile = '/Background.png'
 

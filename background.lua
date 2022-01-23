@@ -21,7 +21,7 @@ function StaticBackground:init(window, bgFile, passedDisplayOptions)
 	local bgPath = RWCEMainDirectory .. '/' .. self.bgFile
 
 	self.uiObj = createImage(window)
-	self.uiObj:setSize(960, 2160)
+	self.uiObj:setSize(1920, 1080)
 	self.uiObj:setStretch(false)
 
 	self.bgImage = createPicture()
@@ -127,7 +127,7 @@ function SA2Background:init(window, bgFolder, character, passedDisplayOptions)
 	self.bgTexts['hunting']:loadFromFile(bgDirectory .. '/text_hunting.png')
 
 	local uiObjBack = createImage(window)
-	uiObjBack:setSize(960, 2160)
+	uiObjBack:setSize(1920, 1080)
 	uiObjBack:setStretch(false)
 
 	uiObjBack.setPicture(self.bgColors['black'])
@@ -135,7 +135,7 @@ function SA2Background:init(window, bgFolder, character, passedDisplayOptions)
 	self:addElement({0,0}, uiObjBack)
 
 	local uiObjText = createImage(window)
-	uiObjText:setSize(960, 2160)
+	uiObjText:setSize(1920, 1080)
 	uiObjText:setStretch(false)
 
 	uiObjText.setPicture(self.bgTexts['other'])
@@ -233,7 +233,7 @@ function SADXBackground:init(window, bgFolder, character, passedDisplayOptions)
 	self.bgTexts['hunting']:loadFromFile(bgDirectory .. '/text_hunting.png')
 
 	local uiObjBack = createImage(window)
-	uiObjBack:setSize(960, 2160)
+	uiObjBack:setSize(1920, 1080)
 	uiObjBack:setStretch(false)
 
 	uiObjBack.setPicture(self.bgColors['black'])
@@ -241,7 +241,7 @@ function SADXBackground:init(window, bgFolder, character, passedDisplayOptions)
 	self:addElement({0,0}, uiObjBack)
 
 	local uiObjText = createImage(window)
-	uiObjText:setSize(960, 2160)
+	uiObjText:setSize(1920, 1080)
 	uiObjText:setStretch(false)
 
 	uiObjText.setPicture(self.bgTexts['other'])
@@ -277,7 +277,7 @@ function HeroesBackground:init(window, bgFolder, activeCharacter, passedDisplayO
 	local bgDirectory = RWCEMainDirectory .. '/' .. self.bgFolder
 
 	self.uiObj = createImage(window)
-	self.uiObj:setSize(960, 2160)
+	self.uiObj:setSize(1920, 1080)
 	self.uiObj:setStretch(false)
 
 	self.bgImages = {}

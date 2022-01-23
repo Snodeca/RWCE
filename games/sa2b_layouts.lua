@@ -12,6 +12,9 @@ local InputDisplay = inputDisplayModule.InputDisplay
 local imageValueDisplayModule = require 'imagevaluedisplay'
 local ImageValueDisplay = imageValueDisplayModule.ImageValueDisplay
 
+local imageRankDisplayModule = require 'imagerankdisplay'
+local ImageRankDisplay = imageRankDisplayModule.ImageRankDisplay
+
 local background = require 'background'
 local SA2Background = background.SA2Background
 
@@ -30,7 +33,7 @@ function layouts.improved_viewer_2160p:init()
   self:setBreakpointUpdateMethod()
 
   self.window:setColor(0x000000)
-  self.window:setSize(960, 2160)
+  self.window:setSize(1920, 1080)
   self.labelDefaults = {fontSize=22, fontName=fixedWidthFontName}
 
   self:addImage(SA2Background, {"sa_background_2160p", self.game.character}, {x=0, y=0})
@@ -112,7 +115,7 @@ function layouts.improved_viewer_720p:init()
   for i, variable in ipairs(variables) do
     self:addImage(ImageValueDisplay, {
       function(...) return self.game:displayValues()[variable.Name] end,
-      variable.Characters, 'Kimberley20pt'
+      variable.Characters, 'Kimberley60pt'
     }, {x=variable.X,y=variable.Y})
   end
 
@@ -127,6 +130,73 @@ function layouts.improved_viewer_720p:init()
   }, {x=185,y=574})
 
   self:addImage(InputDisplay, {"TronStyleNoDpad720p", self.game.controllerData1, self.game.controllerData2}, {x=0, y=611})
+  
+end
+
+layouts.hundo_viewer= subclass(Layout)
+function layouts.hundo_viewer:init()
+  
+  local game = self.game
+
+  self:setBreakpointUpdateMethod()
+
+  self.window:setColor(0x000000)
+  self.window:setSize(1920, 1080)
+  self.labelDefaults = {fontSize=22, fontName=fixedWidthFontName}
+
+  self:addImage(SA2Background, {"sa_background_hundo", self.game.character}, {x=0, y=0})
+
+  local variables = {
+    {Name = 'Time', Characters = 16, X = 103, Y = 26},
+    {Name = 'FSpd', Characters = 7, X = 1736, Y = 138},
+    {Name = 'VSpd', Characters = 7, X = 1736, Y = 176},
+    {Name = 'StSpd', Characters = 7, X = 1736, Y = 103},
+    {Name = 'XSpd', Characters = 7, X = 1700, Y = 293},
+    {Name = 'YSpd', Characters = 7, X = 209, Y = 140},
+    {Name = 'ZSpd', Characters = 7, X = 209, Y = 164},
+    {Name = 'XPos', Characters = 11, X = 1656, Y = 431},
+    {Name = 'YPos', Characters = 11, X = 1656, Y = 468},
+    {Name = 'ZPos', Characters = 11, X = 1656, Y = 505},
+    {Name = 'XRot', Characters = 6, X = 71, Y = 367},
+    {Name = 'YRot', Characters = 6, X = 222, Y = 379},
+    {Name = 'ZRot', Characters = 6, X = 71, Y = 391},
+    {Name = 'Hover', Characters = 5, X = 100, Y = 457},
+    {Name = 'Action', Characters = 2, X = 274, Y = 457},
+    {Name = 'RNG', Characters = 10, X = 169, Y = 481},
+    {Name = 'Flight', Characters = 7, X = 209, Y = 481},
+    {Name = 'Score', Characters = 16, X = 800, Y = 800},
+    {Name = 'TotalRings', Characters = 16, X = 900, Y = 900}
+  }
+  
+--  local rank = {
+--    {Name = 'CurrentRank', Characters = 1, X = 700, Y = 700}
+--  }
+
+  for i, variable in ipairs(variables) do
+    self:addImage(ImageValueDisplay, {
+      function(...) return self.game:displayValues()[variable.Name] end,
+      variable.Characters, 'Kimberley40pt'
+    }, {x=variable.X,y=variable.Y})
+  end
+  
+--  for i, variable in ipairs(variables) do
+--    self:addImage(ImageValueDisplay, {
+--      function(...) return self.game:displayValues()[variable.Name] end,
+--      variable.Characters, 'ranks52px'
+--    }, {x=variable.X,y=variable.Y})
+--  end
+
+  self:addImage(ImageValueDisplay, {
+    function(...) return self.game:displayAnalogAngle() end,
+    6, 'Kimberley40pt'
+  }, {x=185,y=550})
+
+  self:addImage(ImageValueDisplay, {
+    function(...) return self.game:displayValues().AnalogMagnitude end,
+    6, 'Kimberley40pt'
+  }, {x=185,y=574})
+
+  self:addImage(InputDisplay, {"TronStyleNoDpad720p", self.game.controllerData1, self.game.controllerData2}, {x=200, y=611})
   
 end
 
@@ -448,6 +518,31 @@ function layouts.recording:init()
     self.game.fSpeed, "fspd_output.txt",
     {beforeDecimal=1, afterDecimal=10})
 	
+end
+
+layouts.timebonus = subclass(Layout)
+function layouts.timebonus:init()
+
+  local game = self.game
+  self.margin = 6
+  self:setBreakpointUpdateMethod()
+  self:activateAutoPositioningY()
+  
+  self.window:setSize(240, 540)
+  self.labelDefaults = {fontSize=fontSize, fontName=fixedWidthFontName}
+  self.itemDisplayDefaults = {narrow=true}
+
+  local variables = {
+    {Name = 'TotalRings', Characters = 16, X = 0, Y = 0},
+  }
+  
+    for i, variable in ipairs(variables) do
+    self:addImage(ImageValueDisplay, {
+      function(...) return self.game:displayValues()[variable.Name] end,
+      variable.Characters, 'Kimberley20pt'
+    }, {x=variable.X,y=variable.Y})
+  end
+  
 end
 
 return {

@@ -190,9 +190,9 @@ GV.vDecel = MV(
   "VerticalDeceleration", 0x118, PointerBasedChar4Value, FloatType)
 GV.gravity = MV(
   "Gravity", 0x138, PointerBasedChar4Value, FloatType)
-GV.speedShoes =
-  MV("SpeedShoes", 0xD9E302, StaticValue, ShortType)
-  
+GV.speedShoes = MV(
+  "SpeedShoes", 0xD9E302, StaticValue, ShortType)
+
   
 -- Camera
   
@@ -231,15 +231,24 @@ GV.rShoulder =
 -- Time
 
 GV.frameCounter = 
-  MV("Frames Counter", 0x3AD858, StaticValue, IntType)
+  MV("Frames Counter", 0x1CC1E0, StaticValue, IntType)
 GV.centiseconds =
   MV("Centiseconds", 0x1B3DAF, StaticValue, ByteType)
 GV.seconds =
   MV("Seconds", 0x1B3D6F, StaticValue, ByteType)
 GV.minutes =
   MV("Minutes", 0x1B3D2F, StaticValue, ByteType)
- 
- 
+
+
+-- 180 Emblems / A-Ranks
+  GV.score = MV("Score", 0x1CC1F8, StaticValue, IntType)
+  GV.rings = MV("Rings", 0x1CC1D0, StaticValue, ShortType)
+  GV.totalrings = MV("TotalRings", 0x1CC204, StaticValue, IntType)
+  GV.gameState = MV("GameState", 0x3AD81B, StaticValue, ByteType)
+  GV.levelBeaten = MV("LevelBeaten", 0x1CC1AA, StaticValue, ByteType)
+  GV.currentStage = MV("CurrentStage", 0x3AD821, StaticValue, ByteType)
+  GV.currentMission = MV("CurrentMission", 0x1CC18B, StaticValue, ByteType)
+
 -- Screen display functions
 
 function MyGame:displayValues()
@@ -264,7 +273,12 @@ function MyGame:displayValues()
       ['RNG'] = '',
       ['Flight'] = '',
       ['AnalogAngle'] = '',
-      ['AnalogMagnitude'] = ''
+      ['AnalogMagnitude'] = '',
+	  -- Start 180
+      ['Score'] = '',
+      ['TotalRings'] = '',
+      ['CurrentRank'] = ''
+	  -- End 180
     }
   end
 
@@ -277,7 +291,7 @@ function MyGame:displayValues()
   local rng = ''
 
   if self.character:get() == 0 or self.character:get() == 1 or self.character:get() == 8 or self.character:get() == 12 then
-    stspd = string.format("%7.4f", self.stSpeed:get())
+    stspd = string.format("%7.3f", self.stSpeed:get())
   end
 
   if self.character:get() == 4 or self.character:get() == 5 or self.character:get() == 15 or self.character:get() == 16 then
@@ -290,26 +304,89 @@ function MyGame:displayValues()
     hover = self.hoverLimit:get()
   end
 
+  local secall = (minu*60)+sec 
+  -- local timebonus = (secall-60)/20
+  local timebonus = 10000-(secall-60)*20
+    if timebonus > 10000 then
+      timebonus = 10000
+    end
+  local scorewtb = timebonus + self.score:get()
+  
+  local actionn = self.action:get()
+  local gamestatemath = self.gameState:get()
+  local levelBeaten = self.levelBeaten:get()
+  local correcttotalrings = self.rings:get() + self.totalrings:get()
+
+--    if gamestatemath == 16 then
+--      if actionn == 18 then
+--        if levelBeaten == 1 then
+        -- frame counter -> text file once
+        -- txt + 259, then
+--          correcttotalrings = self.totalrings:get()
+
+ --       end
+ --     end
+--    end
+
+--  local levelBeaten
+--  local temporaryTotalRings
+--  local correcttotalrings
+--  
+--  if gamestatemath == 2 then
+--    temporaryTotalRings = self.totalrings:get()
+--  end
+--
+--  if self.rings:get() > 0 do
+--    correcttotalrings = temporaryTotalRings + self.rings:get()
+--  else
+--    correcttotalrings = self.totalrings:get()
+--  end
+  
+--  local currentStage = self.currentStage.get()
+--  local currentMission = self.currentMission.get()
+--  local currentRank
+--    if currentStage == 13 then -- City Escape
+--      if currentMission == 0 then
+--        if scorewtb < 9000 then
+--          currentRank = "E"
+--        elseif scorewtb < 11000 then
+--          currentRank = "D"
+--        elseif scorewtb < 14000 then
+--          currentRank = "C"
+--        elseif scorewtb < 18000 then
+--          currentRank = "B"
+--        elseif scorewtb >= 18000 then
+--          currentRank = "A"
+--        end
+--      end
+--    end
+  
+  
+  
   return {
     ['Time'] = string.format("%02d:%02d:%02d - %05d", minu, sec, centi, frames),
-    ['FSpd'] = string.format("%7.4f", self.fSpeed:get()),
-    ['VSpd'] = string.format("%7.4f", self.vSpeed:get()),
-    ['XSpd'] = string.format("%7.4f", self.xSpd:get()),
-    ['YSpd'] = string.format("%7.4f", self.ySpd:get()),
-    ['ZSpd'] = string.format("%7.4f", self.zSpd:get()),
-    ['XPos'] = string.format("%11.4f", self.xPos:get()),
+    ['FSpd'] = string.format("%7.3f", self.fSpeed:get()),
+    ['VSpd'] = string.format("%7.3f", self.vSpeed:get()),
+    ['XSpd'] = string.format("%7.3f", self.xSpd:get()),
+    ['YSpd'] = string.format("%7.3f", self.ySpd:get()),
+    ['ZSpd'] = string.format("%7.3f", self.zSpd:get()),
+    ['XPos'] = string.format("%11.4f", self.xPos:get()), -- "-23456.89AB"
     ['YPos'] = string.format("%11.4f", self.yPos:get()),
     ['ZPos'] = string.format("%11.4f", self.zPos:get()),
     ['XRot'] = string.format("%5.1fd", self.xRot:get() * 360 / 65536),
-    ['YRot'] = string.format("%5.1fd", self.yRot:get() * 360 / 65536),
+    ['YRot'] = string.format("%5.2fd", self.yRot:get() * 360 / 65536),
     ['ZRot'] = string.format("%5.1fd", self.zRot:get() * 360 / 65536),
     ['Hover'] = string.format("%2d/%2d", hover, self.hoverLimit:get()),
-    ['Action'] = string.format("%2d", self.action:get()),
+    ['Action'] = string.format("%2d", actionn),
     ['StSpd'] = stspd,
     ['RNG'] = rng,
     ['Flight'] = '',
     ['AnalogAngle'] = string.format("%5.1fd", self.analogAngle:get()),
-    ['AnalogMagnitude'] = string.format("%6.4f", self.analogMagnitude:get())
+    ['AnalogMagnitude'] = string.format("%6.4f", self.analogMagnitude:get()),
+    -- 180
+    ['Score'] = string.format("%8d", scorewtb),
+    ['TotalRings'] = string.format("%7d", correcttotalrings),
+--    ['CurrentRank'] = tostring(currentRank)
   }
 
 end
@@ -363,7 +440,7 @@ function MyGame:displaySpeedSmall()
   local yspd = self.ySpd:get()
   local zspd = self.zSpd:get()
   
-  return string.format("Speed\n  Fw:%8.3f   X: %8.3f\n  Vt:%8.3f   Y: %8.3f\n  St:%8.3f   Z: %8.3f\n  Sd:%8.3f\n", fspd, xspd, vspd, yspd, stspd, zspd, sdspd)
+  return string.format("Speed\n  Fw:%8.4f   X: %8.4f\n  Vt:%8.4f   Y: %8.4f\n  St:%8.4f   Z: %8.4f\n  Sd:%8.4f\n", fspd, xspd, vspd, yspd, stspd, zspd, sdspd)
 end
 
 function MyGame:displayRotation()

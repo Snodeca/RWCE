@@ -37,7 +37,7 @@ function DolphinGame:init(options)
       getAddress(self.exeName) + options.oncePerFrameAddress
   end
 
-  self.constantGameStartAddress =
+  self.constantGameStartAddress = 
     options.constantGameStartAddress or nil
 
   gameModule.Game.init(self, options)
