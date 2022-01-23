@@ -144,7 +144,7 @@ function layouts.hundo_viewer:init()
   self:addImage(SA2Background, {"sa_background_hundo", self.game.character}, {x=0, y=0})
 
   local variables = {
-    {Name = 'Time', Characters = 16, X = 103, Y = 26},
+    {Name = 'Time', Characters = 16, X = 283, Y = 11},
     {Name = 'FSpd', Characters = 7, X = 1736, Y = 138},
     {Name = 'VSpd', Characters = 7, X = 1736, Y = 176},
     {Name = 'StSpd', Characters = 7, X = 1736, Y = 103},
@@ -170,7 +170,8 @@ function layouts.hundo_viewer:init()
   }
   
   local rank = {
-    {Name = 'CurrentRank', Characters = 1, X = 980, Y = 300}
+    {Name = 'CurrentRank', Characters = 1, X = 763, Y = 67},
+    {Name = 'StaticARank', Characters = 1, X = 763, Y = 5},
   }
 
   for i, variable in ipairs(variables) do

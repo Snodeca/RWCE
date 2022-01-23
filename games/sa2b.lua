@@ -293,7 +293,8 @@ function MyGame:displayValues()
       ['CurrentRank'] = '',
       ['RankRequirement'] = '',
       ['Emblems'] = '',
-      ['SpindashCharge'] = ''
+      ['SpindashCharge'] = '',
+      ['StaticARank'] = ''
 	  -- End 180
     }
   end
@@ -365,7 +366,7 @@ function MyGame:displayValues()
   
   
   return {
-    ['Time'] = string.format("%02d:%02d:%02d - %05d", minu, sec, centi, frames),
+    ['Time'] = string.format("0:%02d:%02d:%02d - %05d", minu, sec, centi, frames),
     ['FSpd'] = string.format("%7.3f", self.fSpeed:get()),
     ['VSpd'] = string.format("%7.3f", self.vSpeed:get()),
     ['XSpd'] = string.format("%7.3f", self.xSpd:get()),
@@ -390,7 +391,8 @@ function MyGame:displayValues()
     ['Emblems'] = string.format("%3d", self.emblemCount:get()),
     ['CurrentRank'] = string.format("%1X", curRank),
     ['RankRequirement'] = string.format("%6d", aRankReq),
-    ['SpindashCharge'] = string.format("%2d", self.spindashCharge:get())
+    ['SpindashCharge'] = string.format("%2d", self.spindashCharge:get()),
+    ['StaticARank'] = string.format("%1X", aRankStatic)
   }
 
 end

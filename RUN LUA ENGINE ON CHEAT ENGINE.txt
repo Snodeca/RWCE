@@ -1,4 +1,4 @@
-RWCEMainDirectory = [[C:\Users\Margot\BetterDocuments\ram-watch-cheat-engine-master (2)]]
+RWCEMainDirectory = [[C:\Users\Margot\BetterDocuments\Lua\RWCE]]
 
 RWCEOptions = {
   gameModuleName = 'sa2b',

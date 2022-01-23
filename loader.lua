@@ -27,5 +27,5 @@ local runner = require('runner')
 originalTotalRings = 0
 curRank = 14
 aRankReq = 10000
-
+aRankStatic = 10
 runner.start(RWCEOptions)
