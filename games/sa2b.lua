@@ -325,24 +325,26 @@ function MyGame:displayValues()
   end
 
   
---  local currentStage = self.currentStage.get()
---  local currentMission = self.currentMission.get()
---  local currentRank
---    if currentStage == 13 then -- City Escape
---      if currentMission == 0 then
---        if scorewtb < 9000 then
---          currentRank = "E"
---        elseif scorewtb < 11000 then
---          currentRank = "D"
---        elseif scorewtb < 14000 then
---          currentRank = "C"
---        elseif scorewtb < 18000 then
---          currentRank = "B"
---        elseif scorewtb >= 18000 then
---          currentRank = "A"
---        end
---      end
---    end
+  local currentStage = self.currentStage.get()
+  local currentMission = self.currentMission.get()
+  local currentRank
+    if currentStage == 13 then -- City Escape
+      if currentMission == 0 then
+        if scorewtb < 9000 then
+          currentRank = 14
+        elseif scorewtb < 11000 then
+          currentRank = 13
+        elseif scorewtb < 14000 then
+          currentRank = 12
+        elseif scorewtb < 18000 then
+          currentRank = 11
+        elseif scorewtb >= 18000 then
+          currentRank = 10
+        else
+          currentRank = 14
+        end
+      end
+    end
   
   
   
@@ -369,7 +371,7 @@ function MyGame:displayValues()
     -- 180
     ['Score'] = string.format("%8d", scorewtb),
     ['TotalRings'] = string.format("%7d", correcttotalrings),
---    ['CurrentRank'] = tostring(currentRank)
+    ['CurrentRank'] = string.format("%3X", currentRank)
   }
 
 end

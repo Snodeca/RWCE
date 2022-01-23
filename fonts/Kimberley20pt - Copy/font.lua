@@ -1,5 +1,5 @@
 local charImageFiles = {
-  ['0'] = '/0.png',
+	['0'] = '/0.png',
 	['1'] = '/1.png',
 	['2'] = '/2.png',
 	['3'] = '/3.png',
@@ -18,13 +18,14 @@ local charImageFiles = {
 	['C'] = '/C.png',
 	['D'] = '/D.png',
 	['E'] = '/E.png',
+	['F'] = '/F.png',
 	['x'] = '/x.png',
 	['/'] = '/slash.png'
 }
 
 local settings = {
-	width = 52,
-	height = 52
+	width = 13,
+	height = 17
 }
 
 return {

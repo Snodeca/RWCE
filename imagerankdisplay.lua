@@ -28,7 +28,7 @@ function ImageRankDisplay:init(window, returnFuncOrValue, numCharacters, fontNam
     utils.updateTable(self.displayOptions, passedDisplayOptions)
   end
 
-  local fontDirectory = RWCEMainDirectory .. "/ranks/" .. self.fontName
+  local fontDirectory = RWCEMainDirectory .. "/fonts/" .. self.fontName
 
   local font = require (fontDirectory .. "/font")
 

@@ -534,6 +534,7 @@ function layouts.timebonus:init()
 
   local variables = {
     {Name = 'TotalRings', Characters = 16, X = 0, Y = 0},
+    {Name = 'CurrentRank', Characters = 5, X = 0, Y = 100}
   }
   
     for i, variable in ipairs(variables) do
@@ -542,6 +543,18 @@ function layouts.timebonus:init()
       variable.Characters, 'Kimberley20pt'
     }, {x=variable.X,y=variable.Y})
   end
+  
+--    local rank = {
+--    {Name = 'CurrentRank', Characters = 5, X = 0, Y = 100}
+--  }
+--  
+--  for i, variable in ipairs(rank) do
+--    self:addImage(ImageValueDisplay, {
+--      function(...) return self.game:displayValues()[variable.Name] end,
+--      variable.Characters, 'ranks52px'
+--    }, {x=variable.X,y=variable.Y})
+
+--end
   
 end
 
