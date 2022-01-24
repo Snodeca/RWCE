@@ -294,7 +294,8 @@ function MyGame:displayValues()
       ['RankRequirement'] = '',
       ['Emblems'] = '',
       ['SpindashCharge'] = '',
-      ['StaticARank'] = ''
+      ['StaticARank'] = '',
+      ['Frames'] = '',
 	  -- End 180
     }
   end
@@ -364,9 +365,9 @@ function MyGame:displayValues()
     end
   
   
-  
   return {
-    ['Time'] = string.format("0:%02d:%02d:%02d - %05d", minu, sec, centi, frames),
+    ['Time'] = string.format("0:%02d:%02d:%02d", minu, sec, centi),
+    ['Frames'] = string.format("%07d", frames),
     ['FSpd'] = string.format("%7.3f", self.fSpeed:get()),
     ['VSpd'] = string.format("%7.3f", self.vSpeed:get()),
     ['XSpd'] = string.format("%7.3f", self.xSpd:get()),
@@ -376,7 +377,7 @@ function MyGame:displayValues()
     ['YPos'] = string.format("%11.4f", self.yPos:get()),
     ['ZPos'] = string.format("%11.4f", self.zPos:get()),
     ['XRot'] = string.format("%5.1fd", self.xRot:get() * 360 / 65536),
-    ['YRot'] = string.format("%5.2fd", self.yRot:get() * 360 / 65536),
+    ['YRot'] = string.format("%5.1fd", self.yRot:get() * 360 / 65536),
     ['ZRot'] = string.format("%5.1fd", self.zRot:get() * 360 / 65536),
     ['Hover'] = string.format("%2d/%2d", hover, self.hoverLimit:get()),
     ['Action'] = string.format("%2d", actionn),
@@ -386,11 +387,11 @@ function MyGame:displayValues()
     ['AnalogAngle'] = string.format("%5.1fd", self.analogAngle:get()),
     ['AnalogMagnitude'] = string.format("%6.4f", self.analogMagnitude:get()),
     -- 180
-    ['Score'] = string.format("%8d", scorewtb),
-    ['TotalRings'] = string.format("%8d", correcttotalrings),
-    ['Emblems'] = string.format("%3d", self.emblemCount:get()),
+    ['Score'] = string.format("%d", scorewtb),
+    ['TotalRings'] = string.format("%d", correcttotalrings),
+    ['Emblems'] = string.format("%d", self.emblemCount:get()),
     ['CurrentRank'] = string.format("%1X", curRank),
-    ['RankRequirement'] = string.format("%6d", aRankReq),
+    ['RankRequirement'] = string.format("%3d", aRankReq),
     ['SpindashCharge'] = string.format("%2d", self.spindashCharge:get()),
     ['StaticARank'] = string.format("%1X", aRankStatic)
   }

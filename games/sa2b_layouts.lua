@@ -144,28 +144,28 @@ function layouts.hundo_viewer:init()
   self:addImage(SA2Background, {"sa_background_hundo", self.game.character}, {x=0, y=0})
 
   local variables = {
-    {Name = 'Time', Characters = 16, X = 283, Y = 11},
-    {Name = 'FSpd', Characters = 7, X = 1736, Y = 138},
-    {Name = 'VSpd', Characters = 7, X = 1736, Y = 176},
-    {Name = 'StSpd', Characters = 7, X = 1736, Y = 103},
-    {Name = 'XSpd', Characters = 7, X = 1700, Y = 293},
-    {Name = 'YSpd', Characters = 7, X = 209, Y = 140},
-    {Name = 'ZSpd', Characters = 7, X = 209, Y = 164},
-    {Name = 'XPos', Characters = 11, X = 1656, Y = 431},
-    {Name = 'YPos', Characters = 11, X = 1656, Y = 468},
-    {Name = 'ZPos', Characters = 11, X = 1656, Y = 505},
-    {Name = 'XRot', Characters = 6, X = 71, Y = 367},
-    {Name = 'YRot', Characters = 6, X = 222, Y = 379},
-    {Name = 'ZRot', Characters = 6, X = 71, Y = 391},
-    {Name = 'Hover', Characters = 5, X = 100, Y = 457},
-    {Name = 'Action', Characters = 2, X = 274, Y = 457},
-    {Name = 'RNG', Characters = 10, X = 169, Y = 481},
-    {Name = 'Flight', Characters = 7, X = 209, Y = 481},
-    {Name = 'Score', Characters = 9, X = 800, Y = 800},
-    {Name = 'TotalRings', Characters = 8, X = 980, Y = 144},
-    {Name = 'Emblems', Characters = 3, X = 980, Y = 200},
-    {Name = 'RankRequirement', Characters = 9, X = 980, Y = 220},
-    {Name = 'SpindashCharge', Characters = 2, X = 980, Y = 240},
+    {Name = 'Time', Characters = 16, X = 297, Y = 92}, --           Placed
+    {Name = 'Frames', Characters = 7, X = 297, Y = 133}, --         p
+    {Name = 'FSpd', Characters = 7, X = 1736, Y = 138}, --          p
+    {Name = 'VSpd', Characters = 7, X = 1736, Y = 176}, --          p
+    {Name = 'StSpd', Characters = 7, X = 1736, Y = 103}, --         p
+    {Name = 'XSpd', Characters = 7, X = 1701, Y = 255}, --          p
+    {Name = 'YSpd', Characters = 7, X = 1701, Y = 291}, --          p
+    {Name = 'ZSpd', Characters = 7, X = 1701, Y = 327}, --          p
+    {Name = 'XPos', Characters = 11, X = 1656, Y = 431}, --         p
+    {Name = 'YPos', Characters = 11, X = 1656, Y = 469}, --         p
+    {Name = 'ZPos', Characters = 11, X = 1656, Y = 507}, --         p
+    {Name = 'YRot', Characters = 6, X = 1781, Y = 607}, --          p
+    {Name = 'XRot', Characters = 6, X = 1781, Y = 648}, --          p
+    {Name = 'ZRot', Characters = 6, X = 1781, Y = 690}, --          p
+    {Name = 'Hover', Characters = 5, X = 1803, Y = 794}, --   b
+    {Name = 'Action', Characters = 2, X = 1869, Y = 827}, --  b
+--    {Name = 'RNG', Characters = 10, X = 169, Y = 481},
+--    {Name = 'Flight', Characters = 7, X = 209, Y = 481},
+    {Name = 'RankRequirement', Characters = 9, X = 1000, Y = 13}, --p
+    {Name = 'Score', Characters = 9, X = 1000, Y = 75}, --          p
+    {Name = 'TotalRings', Characters = 8, X = 979, Y = 127}, --     p
+    {Name = 'SpindashCharge', Characters = 2, X = 1869, Y = 858}, -- b
     
   }
   
@@ -173,6 +173,13 @@ function layouts.hundo_viewer:init()
     {Name = 'CurrentRank', Characters = 1, X = 763, Y = 67},
     {Name = 'StaticARank', Characters = 1, X = 763, Y = 5},
   }
+  
+  local hundovar
+    hundovar = {
+    {Name = 'Emblems', Characters = 3, X = 60, Y = 111}, -- X=11 for 3char
+  }
+
+  
 
   for i, variable in ipairs(variables) do
     self:addImage(ImageValueDisplay, {
@@ -188,17 +195,24 @@ function layouts.hundo_viewer:init()
     }, {x=variable.X,y=variable.Y})
   end
 
-  self:addImage(ImageValueDisplay, {
-    function(...) return self.game:displayAnalogAngle() end,
-    6, 'Kimberley40pt'
-  }, {x=185,y=550})
+  for i, variable in ipairs(hundovar) do
+    self:addImage(ImageValueDisplay, {
+      function(...) return self.game:displayValues()[variable.Name] end,
+      variable.Characters, 'Kimberley60pt'
+    }, {x=variable.X,y=variable.Y})
+  end
+  
+--  self:addImage(ImageValueDisplay, {
+--    function(...) return self.game:displayAnalogAngle() end,
+--    6, 'Kimberley40pt'
+--  }, {x=185,y=550})
+--
+--  self:addImage(ImageValueDisplay, {
+--    function(...) return self.game:displayValues().AnalogMagnitude end,
+--    6, 'Kimberley40pt'
+--  }, {x=185,y=574})
 
-  self:addImage(ImageValueDisplay, {
-    function(...) return self.game:displayValues().AnalogMagnitude end,
-    6, 'Kimberley40pt'
-  }, {x=185,y=574})
-
-  self:addImage(InputDisplay, {"TronStyleNoDpad720p", self.game.controllerData1, self.game.controllerData2}, {x=200, y=611})
+  self:addImage(InputDisplay, {"TronStyleHundo", self.game.controllerData1, self.game.controllerData2}, {x=1607, y=905})
   
 end
 

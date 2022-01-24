@@ -9,8 +9,10 @@ local buttons = {
 	{File = '/X.png', Pos = {849, 126}, Size = {70,125} },
 	{File = '/Y.png', Pos = {673, 49}, Size = {126,73} },
 	{File = '/Start.png', Pos = {560, 108}, Size = {48,48} },
-	{File = '/R.png', Pos = {21, 17}, Size = {220,39} },
-	{File = '/R.png', Pos = {311, 17}, Size = {220,39} },
+--	{File = '/R.png', Pos = {21, 17}, Size = {220,39} },
+--	{File = '/R.png', Pos = {311, 17}, Size = {220,39} },
+	{File = '/R.png', Pos = {900, 800}, Size = {220,39} },
+	{File = '/R.png', Pos = {900, 800}, Size = {220,39} },
 	{File = '/Z.png', Pos = {830, 34}, Size = {103,52} }
 }
 
