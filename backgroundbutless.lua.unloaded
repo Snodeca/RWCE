@@ -1,0 +1,110 @@
+package.loaded.layouts = nil
+local layouts = require "layouts"
+package.loaded.utils = nil
+local utils = require "utils"
+local readIntBE = utils.readIntBE
+local subclass = utils.subclass
+local CompoundElement = layouts.CompoundElement
+local SimpleElement = layouts.SimpleElement
+
+local StaticBackground = subclass(SimpleElement)
+
+function StaticBackground:init(window, bgFile, passedDisplayOptions)
+
+	self.bgFile = bgFile
+
+	self.displayOptions = {nolabel=true}
+	if passedDisplayOptions then
+		utils.updateTable(self.displayOptions, passedDisplayOptions)
+	end
+
+	local bgPath = RWCEMainDirectory .. '/' .. self.bgFile
+
+	self.uiObj = createImage(window)
+	self.uiObj:setSize(1920, 1080)
+	self.uiObj:setStretch(false)
+
+	self.bgImage = createPicture()
+	self.bgImage:loadFromFile(bgPath)
+
+	self.uiObj.setPicture(self.bgImage)
+	self:setVisible(true)
+
+end
+
+local SA2Background = subclass(CompoundElement)
+
+function SA2Background:init(window, bgFolder, character, passedDisplayOptions)
+
+	self.color_array = {
+		'pinkkey'
+	}
+
+	self.text_array = {
+    'all'
+	}
+
+	self.bgFolder = bgFolder
+	self.character = character
+
+	self.displayOptions = {nolabel=true}
+	if passedDisplayOptions then
+		utils.updateTable(self.displayOptions, passedDisplayOptions)
+	end
+
+	local bgDirectory = RWCEMainDirectory .. '/' .. self.bgFolder
+
+	self.bgColors = {}
+
+	self.bgColors['pinkkey'] = createPicture()
+	self.bgColors['pinkkey']:loadFromFile(bgDirectory .. '/pinkkey.png')
+
+	self.bgTexts = {}
+
+	self.bgTexts['other'] = createPicture()
+	self.bgTexts['other']:loadFromFile(bgDirectory .. '/text_sonic.png')
+
+	self.bgTexts['sonic'] = createPicture()
+	self.bgTexts['sonic']:loadFromFile(bgDirectory .. '/text_sonic.png')
+
+	self.bgTexts['tails'] = createPicture()
+	self.bgTexts['tails']:loadFromFile(bgDirectory .. '/text_tails.png')
+
+	self.bgTexts['hunting'] = createPicture()
+	self.bgTexts['hunting']:loadFromFile(bgDirectory .. '/text_hunting.png')
+
+	local uiObjBack = createImage(window)
+	uiObjBack:setSize(1920, 1080)
+	uiObjBack:setStretch(false)
+
+	uiObjBack.setPicture(self.bgColors['pinkkey'])
+
+	self:addElement({0,0}, uiObjBack)
+
+	local uiObjText = createImage(window)
+	uiObjText:setSize(1920, 1080)
+	uiObjText:setStretch(false)
+
+	uiObjText.setPicture(self.bgTexts['text_sonic']) ------------- This is temporarily set to sonic to get around the fact nothing has been loaded for text_other.
+
+	self:addElement({0,0}, uiObjText)
+
+end
+
+function SA2Background:update()
+
+	if self.character:get() > #self.color_array then
+		self.elements[1].uiObj.setPicture(self.bgColors['pinkkey'])
+		self.elements[2].uiObj.setPicture(self.bgTexts['other'])
+	else
+		self.elements[1].uiObj.setPicture(self.bgColors[self.color_array[self.character:get() + 1]])
+		self.elements[2].uiObj.setPicture(self.bgTexts[self.text_array[self.character:get() + 1]])
+	end
+
+end
+
+
+
+return {
+	SA2BackgroundButLess = SA2Background,
+	}
